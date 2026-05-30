@@ -42,7 +42,7 @@ def predict():
     params = {
         "latitude" : LUKLA_LAT,
         "longitude": LUKLA_LON,
-        "hourly": "windspeed_700hPa,windspeed_850hPa,temperature_700hPa,temperature_850hPa",
+        "hourly": "wind_speed_700hPa,wind_speed_850hPa,temperature_700hPa,temperature_850hPa",
         "forecast_days": 1
     }
 
@@ -50,8 +50,8 @@ def predict():
     if "hourly" not in res:
         return {"error":str(res)}
     hourly = res["hourly"]
-    wind_700 = np.mean(hourly["windspeed_700hPa"])
-    wind_850 = np.mean(hourly["windspeed_850hPa"])
+    wind_700 = np.mean(hourly["wind_speed_700hPa"])
+    wind_850 = np.mean(hourly["wind_speed_850hPa"])
     wind_shear = wind_700-wind_850
     temp_lapse = np.mean(hourly["temperature_850hPa"]) - np.mean(hourly["temperature_700hPa"])
     features = np.array([[wind_700, wind_850, wind_shear, temp_lapse, datetime.now().month]])
@@ -71,7 +71,7 @@ def forecast():
     params = {
         "latitude" : LUKLA_LAT,
         "longitude": LUKLA_LON,
-        "hourly": "windspeed_700hPa,windspeed_850hPa,temperature_700hPa,temperature_850hPa",
+        "hourly": "wind_speed_700hPa,wind_speed_850hPa,temperature_700hPa,temperature_850hPa",
         "forecast_days": 7
     }
     res = requests.get(url, params = params).json()
@@ -82,8 +82,8 @@ def forecast():
         start = day*24
         end = start + 24
 
-        wind_700 = np.mean(hourly["windspeed_700hPa"][start:end])
-        wind_850 = np.mean(hourly["windspeed_850hPa"][start:end])
+        wind_700 = np.mean(hourly["wind_speed_700hPa"][start:end])
+        wind_850 = np.mean(hourly["wind_speed_850hPa"][start:end])
         wind_shear = wind_700 - wind_850
         temp_lapse = np.mean(hourly["temperature_850hPa"][start:end])-np.mean(hourly["temperature_700hPa"][start:end])
 
