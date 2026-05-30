@@ -1,0 +1,7 @@
+backend/.env
+backend/venv/
+backend/__pycache__/
+backend/*.nc
+node_modules/
+frontend/node_modules/
+backend/model.joblib
