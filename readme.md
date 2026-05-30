@@ -13,6 +13,9 @@
 
 https://imgur.com/DysV07A
 
+## DEMO
+https://lukla-flight-cancellation-predictio.vercel.app/
+
 ## Workings
 
 1. ERA5 data analysis from Copernicus (2022) provides wind speed at 700hPA and 850hPa pressure levels, wind shear, and temperature lapse rate for the region.
