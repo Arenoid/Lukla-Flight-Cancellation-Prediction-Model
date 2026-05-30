@@ -37,10 +37,10 @@ console.log("forecast:", forecast)
   {weather && (
     <div style={{display:"grid", gridTemplateColumns: "repeat(2,1fr)", gap:"16px"}}>
       {[
-        {label: "Temperature", value: `${weather.temperature}°C`},
-        {label: "Wind Speed", value: `${weather.windspeed} m/s` },
-        {label: "Cloud Cover", value: `${weather.cloudcover}%` },
-        {label: "Pressure", value: `${weather.surface_pressure} hPa` },
+        {label: "Temperature", value: `${weather.temperature_2m}°C`},
+        {label: "Wind Speed", value: `${weather.wind_speed_10m} m/s` },
+        {label: "Cloud Cover", value: `${weather.cloud_cover}%` },
+        {label: "Pressure", value: `${weather.surface_pressure}hPa` },
           ].map(item => (
             <div key={item.label} style = {{background:'#000000', borderRadius: "10px", padding:"16px"}}>
               <p style={{color:"#66666688", margin:0, fontSize: "12px"}}>{item.label}</p>
