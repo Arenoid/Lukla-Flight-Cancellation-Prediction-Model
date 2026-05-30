@@ -29,12 +29,10 @@ def get_current():
     params = {
         "latitude":LUKLA_LAT,
         "longitude":LUKLA_LON,
-        "current": "temperature,windspeed,winddirection,precipitation,cloudcover,visibility,surface_pressure",
-        "forecast_days":7
-    }
+        "current": "temperature_2m,windspeed_10m,winddirection_10m,precipitation,cloudcover,visibility,surface_pressure",
+        
+        }
     res = requests.get(url,params = params).json()
-    if "hourly" not in res:
-        return {"error": res}
     return res["current"]
 
 
@@ -49,6 +47,8 @@ def predict():
     }
 
     res = requests.get(url, params = params).json()
+    if "hourly" not in res:
+        return {"error":str(res)}
     hourly = res["hourly"]
     wind_700 = np.mean(hourly["windspeed_700hPa"])
     wind_850 = np.mean(hourly["windspeed_850hPa"])
