@@ -29,7 +29,7 @@ def get_current():
     params = {
         "latitude":LUKLA_LAT,
         "longitude":LUKLA_LON,
-        "current": "temperature_2m,windspeed_10m,winddirection_10m,precipitation,cloudcover,visibility,surface_pressure",
+        "current": "temperature_2m,wind_speed_10m,wind_direction_10m,precipitation,cloud_cover,visibility,surface_pressure",
         
         }
     res = requests.get(url,params = params).json()
