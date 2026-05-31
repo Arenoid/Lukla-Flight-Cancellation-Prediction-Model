@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from datetime import datetime
 import requests
 import joblib
 import numpy as np
+from datetime import datetime, date
 
 app = FastAPI()
 app.add_middleware(
@@ -15,9 +15,8 @@ app.add_middleware(
 
 LUKLA_LAT = 27.6869
 LUKLA_LON = 86.7314
-
 model = joblib.load("model.joblib")
-
+cache = {}
 
 @app.get("/")
 def root():
@@ -33,10 +32,18 @@ def get_current():
         }
     
     res = requests.get(url,params = params).json()
-    return res
+    today = str(date.today())
+    if "current" +today in cache:
+        return cache["current"+ today]
+    result = res.get("current",res)
+    cache ["current"+today] = result
+    return result
 
 @app.get("/predict")
 def predict():
+    today = str(date.today())
+    if "predict" + today in cache:
+        return cache ["predict"+ today]
     url = "https://api.open-meteo.com/v1/forecast"
     params = {
         "latitude" : LUKLA_LAT,
@@ -61,11 +68,15 @@ def predict():
         label = "Medium"
     else:
         label = "High"
+    cache["predict" + today] = {"risk_score": round(risk_score, 4), "label":label}
     return{"risk_score": round(risk_score, 4),"label":label}
 
 
 @app.get("/forecast")
 def forecast():
+    today = str(date.today())
+    if "forecast" + today in cache:
+        return cache["forecast" +today]
     url = "https://api.open-meteo.com/v1/forecast"
     params = {
         "latitude" : LUKLA_LAT,
@@ -103,5 +114,5 @@ def forecast():
             "risk_score": round(risk_score, 4),
             "label": label
         })
-
+    cache["forecast" + today] = results
     return results
