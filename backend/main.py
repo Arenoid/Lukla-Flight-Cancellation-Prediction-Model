@@ -74,6 +74,8 @@ def forecast():
         "forecast_days": 7
     }
     res = requests.get(url, params = params).json()
+    if "hourly" not in res:
+        return{"error": str(res)}
     hourly = res["hourly"]
 
     results = []
