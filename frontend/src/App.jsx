@@ -25,7 +25,7 @@ console.log("forecast:", forecast)
   return(
   <div style={{fontFamily: "monospace", padding:"32px", background:"cyan", minHeight: "100vh", color:"white"}}>
   <h1 style = {{fontSize: "24px", marginBottom:"8px"}}>Lukla Weather Dashboard</h1>
-  <p style={{ color: "#888", marginBottom: "32px"}}>Worlds Most Dangerous Airport</p>
+  <p style={{ color: "#888", marginBottom: "32px"}}>Model to predict flight cancellation risk</p>
   
   {risk &&(
     <div style = {{background: "#000000", borderRadius: "8px", padding:"32px", textAlign:"Center"}}>
