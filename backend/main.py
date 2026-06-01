@@ -34,8 +34,11 @@ def get_current():
         "current": "temperature_2m,wind_speed_10m,wind_direction_10m,precipitation,cloud_cover,visibility,surface_pressure",
     }
     res = requests.get(url,params = params). json()
+    # if "current" not in res:
+    #     result = {"temperature_2m": "N/A", "wind_speed_10m": "N/A", "cloud_cover": "N/A", "surface_pressure": "N/A"}
     if "current" not in res:
-        result = {"temperature_2m": "N/A", "wind_speed_10m": "N/A", "cloud_cover": "N/A", "surface_pressure": "N/A"}
+        return {"debug": str(res)}
+    
     else: result = res["current"]
     cache["current" + today] = result
     return result
