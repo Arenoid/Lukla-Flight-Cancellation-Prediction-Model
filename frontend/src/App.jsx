@@ -15,9 +15,9 @@ function App(){
 
 
 useEffect(() => {
-axios.get("http://localhost:8000/current").then(res => setWeather(res.data))
-axios.get("http://localhost:8000/predict").then(res => setRisk(res.data))
-axios.get("http://localhost:8000/forecast").then(res => setForecast(res.data))
+axios.get("https://lukla-flight-cancellation-prediction.onrender.com/current").then(res => setWeather(res.data))
+axios.get("https://lukla-flight-cancellation-prediction.onrender.com/predict").then(res => setRisk(res.data))
+axios.get("https://lukla-flight-cancellation-prediction.onrender.com/forecast").then(res => setForecast(res.data))
 }, [])
 
 console.log("forecast:", forecast)
