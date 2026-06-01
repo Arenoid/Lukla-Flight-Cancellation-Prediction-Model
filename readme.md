@@ -18,13 +18,15 @@ https://lukla-flight-cancellation-predictio.vercel.app/
 
 ## Workings
 
-1. ERA5 data analysis from Copernicus (2022) provides wind speed at 700hPA and 850hPa pressure levels, wind shear, and temperature lapse rate for the region.
+1. ERA5 data analysis from Copernicus (2022) which provides wind speed at 700hPA and 850hPa pressure levels as well as  wind shear, and temperature lapse rate for that region.
 
 2. Flight cancellations records for 2022 used to train the model.
 
-3. XGBOOST classifier was trained on atmospheric features, achieves - 65% accuracy.
+3. Weather-API was used to display the weather.
 
-4. OPEN METEO API is used to provide a realtime 7day forecast atmospheric data which was then fed into the model to generate risk scores.
+4. XGBOOST classifier was trained on atmospheric features, achieves - 65% accuracy.
+
+5. OPEN METEO API was used to provide a realtime 7 day forecast atmospheric data which was then fed into the model to generate risk scores.
 
 
 
@@ -49,8 +51,9 @@ npm install recharts axios
 npm run dev
 ```
 
-Visit `https://localhosts:5123`
+Visit `https://localhosts:8000`
 
 ## Data From
 - [ERA5 Reanalysis — Copernicus Climate Data Store](https://cds.climate.copernicus.eu)
 - [Open-Meteo API](https://open-meteo.com)
+- [The-Weather-API](https://www.weatherapi.com/)

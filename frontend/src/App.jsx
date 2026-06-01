@@ -15,9 +15,9 @@ function App(){
 
 
 useEffect(() => {
-axios.get("https://lukla-flight-cancellation-prediction.onrender.com/current").then(res => setWeather(res.data))
-axios.get("https://lukla-flight-cancellation-prediction.onrender.com/predict").then(res => setRisk(res.data))
-axios.get("https://lukla-flight-cancellation-prediction.onrender.com/forecast").then(res => setForecast(res.data))
+axios.get("http://localhost:8000/current").then(res => setWeather(res.data))
+axios.get("http://localhost:8000/predict").then(res => setRisk(res.data))
+axios.get("http://localhost:8000/forecast").then(res => setForecast(res.data))
 }, [])
 
 console.log("forecast:", forecast)
@@ -32,6 +32,7 @@ console.log("forecast:", forecast)
    <p style={{ color: "#72727288", marginBottom:"4px"}}>Flight Cancellation Risk</p>
    <h2 style = {{fontSize: "48px", margin:0, color:getRiskColor(risk.label),margin:0}}>{risk.label.toUpperCase()}</h2>
    <p style = {{ color: "#8888", marginTop:"8rem"}}>Risk Score: {(risk.risk_score *100).toFixed(1)}%</p>
+   
    </div>
   )}
   {weather && (

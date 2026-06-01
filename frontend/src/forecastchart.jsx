@@ -18,7 +18,7 @@ console.log("chartData:", chartData)
                     <YAxis stroke = "#00000" fontSize = {12} doman = {[0,100]} unit = "%"/>
                     <ReferenceLine y = {30} stroke = "#000000" strokeDasharray = "3 3"/>
                     <ReferenceLine y = {60} stroke = "#ffe600" strokeDasharray = "3 3"/>
-                    <Line type = "monotone"  dataKey = "risk" stroke = "#00ff15" strokeWidth={2} dot = {{ fill : "#00ff15"}}/>
+                    <Line type = "monotone"  dataKey = "risk" stroke = "#000000" strokeWidth={4} dot = {{ fill : "#000000"}}/>
                 </LineChart>
             </ResponsiveContainer>
         </div>

@@ -4,6 +4,10 @@ import requests
 import joblib
 import numpy as np
 from datetime import datetime, date
+import json
+import os
+
+
 
 app = FastAPI()
 app.add_middleware(
@@ -16,7 +20,20 @@ app.add_middleware(
 LUKLA_LAT = 27.6869
 LUKLA_LON = 86.7314
 model = joblib.load("model.joblib")
-cache = {}
+
+CACHE_FILE = "cache.json"
+def load_cache():
+    if os.path.exists(CACHE_FILE):
+        with open(CACHE_FILE, "r") as f:
+            return json.load(f)
+    return{}
+    
+def save_cache(cache):
+    with open (CACHE_FILE, "w") as f:
+        json.dump(cache, f)
+
+cache = load_cache()
+
 
 @app.get("/")
 def root():
@@ -25,23 +42,27 @@ def root():
 @app.get("/current")
 def get_current():
     today = str(date.today())
-    if "current" + today in cache:
-        return cache ["current"+ today]
-    url = "https://api.open-meteo.com/v1/forecast"
+    if "current"+ today in cache:
+        return cache["current"+today]
+    url = "http://api.weatherapi.com/v1/current.json"
     params = {
-        "latitude": LUKLA_LAT,
-        "longitude" : LUKLA_LON,
-        "current": "temperature_2m,wind_speed_10m,wind_direction_10m,precipitation,cloud_cover,visibility,surface_pressure",
+        "key": "70569c3417bd439881574824263105",
+        "q" : f"{LUKLA_LAT},{LUKLA_LON}"
     }
-    res = requests.get(url,params = params). json()
-    # if "current" not in res:
-    #     result = {"temperature_2m": "N/A", "wind_speed_10m": "N/A", "cloud_cover": "N/A", "surface_pressure": "N/A"}
-    if "current" not in res:
-        return {"debug": str(res)}
-    
-    else: result = res["current"]
-    cache["current" + today] = result
+
+    res = requests.get(url, params = params).json()
+    current = res["current"]
+    result = {
+                      "temperature_2m": current["temp_c"],
+                      "wind_speed_10m": round(current ["wind_kph"] / 3.6, 1),
+                      "cloud_cover": current["cloud"],
+                      "surface_pressure": round(current ["pressure_mb"]*(1-(2860*0.0000225)) ** 5.256, 1)
+                }
+    cache["current"+today] = result
+    save_cache(cache)
     return result
+
+
 
 @app.get("/predict")
 def predict():
