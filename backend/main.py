@@ -55,7 +55,7 @@ def predict():
 
     res = requests.get(url, params = params).json()
     if "hourly" not in res:
-        return {"risk_score": 0.15, "label":"low"}
+        return {"risk_score": 0.15, "label":"Low"}
     hourly = res["hourly"]
     wind_700 = np.mean(hourly["wind_speed_700hPa"])
     wind_850 = np.mean(hourly["wind_speed_850hPa"])
@@ -104,11 +104,11 @@ def forecast():
         risk_score = float(model.predict_proba(features)[0][1])
 
         if risk_score <0.3:
-            label = "low"
+            label = "Low"
         elif risk_score <0.6:
-            label = "medium"
+            label = "Medium"
         else:
-            label = "high"
+            label = "High"
 
         results.append({
             "day":day + 1,
