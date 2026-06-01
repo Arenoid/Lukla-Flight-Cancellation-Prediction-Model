@@ -23,7 +23,7 @@ axios.get("https://lukla-flight-cancellation-prediction.onrender.com/forecast").
 console.log("forecast:", forecast)
 
   return(
-  <div style={{fontFamily: "monospace", padding:"32px", background:"cyan", minHeight: "100vh", color:"white"}}>
+  <div style={{fontFamily: "monospace", padding:"32px", background:"cyan", minHeight: "100vh", color:"white", boxSizing: "border-box", width:"100%"}}>
   <h1 style = {{fontSize: "24px", marginBottom:"8px"}}>Lukla Weather Dashboard</h1>
   <p style={{ color: "#888", marginBottom: "32px"}}>Model to predict flight cancellation risk</p>
   
